@@ -1,0 +1,82 @@
+1.配置文件
+pom.xml里加入spring-boot-starter-data-jpa以及mysql-connector-java的依赖
+
+2.application.yml里加入hibernate、jpa的配置，以及返回json对日期字段的特殊处理配置，注意time-zone的设置，
+须与mysql的url配置一致，否则会引起时间相差8小时的问题。jpa里的show-sql作用，如果设置为true，执行程序后可
+以看在控制台里看到sql语句，如下所示。
+spring:
+  profiles:
+    active: product
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/saascrm?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: snail123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: UTC
+3.分层
+    　为了区别各个模块，为项目建立几个包：controller、Entity、respository、service，这是典型的MVC架构，
+      各个层次的代表意义在此不再赘述。
+
+4.Respository层：spring data jpa让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现，需要实现JpaRepository接口
+
+    public interface UserRepository extends JpaRepository<UserInfo,Long> {
+
+    }
+
+    
+5.Entity层
+    示例：定义了用户信息表实体UserInfo，通过Hibernate与数据库形成映射关系，
+    @Entity
+    @Component
+    public class UserInfo {
+        public UserInfo() {
+        }
+
+        @Id
+        @GeneratedValue
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+        public String getJobNumber() {
+            return jobNumber;
+        }
+
+        public void setJobNumber(String jobNumber) {
+            this.jobNumber = jobNumber;
+        }
+
+        public Date getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(Date createTime) {
+            this.createTime = createTime;
+        }
+
+        private  Long id; //ID
+        private  String name; //姓名
+        private  String jobNumber; //工号
+        private Date createTime; //创建时间
+
+    }
