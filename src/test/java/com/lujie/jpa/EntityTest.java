@@ -1,6 +1,7 @@
 package com.lujie.jpa;
 
 import com.lujie.jpa.dao.UserDao;
+import com.lujie.jpa.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

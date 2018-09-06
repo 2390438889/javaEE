@@ -54,6 +54,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.vaadin.external.jsoup/jsoup-case-sensitive -->
+		<dependency>
+			<groupId>com.vaadin.external.jsoup</groupId>
+			<artifactId>jsoup-case-sensitive</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
