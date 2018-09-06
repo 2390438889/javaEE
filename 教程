@@ -24,10 +24,11 @@ spring:
       各个层次的代表意义在此不再赘述。
 
 4.Respository层：spring data jpa让我们解脱了DAO层的操作，基本上所有CRUD都可以依赖于它来实现，需要实现JpaRepository接口
-
-    public interface UserRepository extends JpaRepository<UserInfo,Long> {
-
+    @NoRepositoryBean       //==>必须加这个注解，不然会报错
+    public interface JpaDao<T,S> extends JpaRepository<T,S>{
     }
+
+
 
     
 5.Entity层
